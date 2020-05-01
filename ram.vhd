@@ -19,11 +19,7 @@ end entity ram;
 
 architecture RTL of ram is
 	type memory is array (2**size - 1 downto 0) of std_ulogic_vector(data_width - 1 downto 0); --data type for memory
-	signal ram              : memory := (
-		0      => std_ulogic_vector(to_unsigned(4, data_width)),
-		1      => std_ulogic_vector(to_unsigned(4, data_width)),
-		others => (others => '0')
-	);                                  --memory array
+	signal ram              : memory;   --memory array
 	signal internal_address : integer range 0 to 2**size - 1; --internal address register
 begin
 	process(clk)
@@ -36,5 +32,9 @@ begin
 		end if;
 	end process;
 
-	data_out <= ram(internal_address);  --output data at the stored address
+	with internal_address select data_out <= --output data at the stored address
+		std_ulogic_vector(to_unsigned(4, data_width)) when 0,
+		std_ulogic_vector(to_unsigned(4, data_width)) when 1,
+			ram(internal_address) when others;
+
 end architecture RTL;

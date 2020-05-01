@@ -26,11 +26,15 @@ begin
 		);
 	clock_gen : process is
 	begin
+		rst <= '1';
+		wait for 100 ps;
 		rst <= '0';
-		wait for 100 ps;
-		clk <= '1';
-		wait for 100 ps;
-		clk <= '0';
+		loop
+			wait for 100 ps;
+			clk <= '1';
+			wait for 100 ps;
+			clk <= '0';
+		end loop;
 	end process clock_gen;
 
 end architecture RTL;
