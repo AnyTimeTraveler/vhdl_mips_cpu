@@ -173,10 +173,6 @@ architecture RTL of mips_cpu is
 
 begin
 	branch_and_zero <= branch and zero;
-	--	pc_plus_four     <= unsigned(pc_out) + 4;
-	--	pc_plus_four_vec <= std_ulogic_vector(pc_plus_four);
-	--	pc_plus_jump     <= unsigned(pc_out) + 4 + unsigned(sign_extended_instruction) * 4;
-	--	pc_plus_jump_vec <= std_ulogic_vector(pc_plus_jump);
 
 	funcs_module : component funcs
 		generic map(
